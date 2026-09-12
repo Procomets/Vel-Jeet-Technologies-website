@@ -6,8 +6,8 @@ import MissionVision from './components/MissionVision';
 import Services from './components/Services';
 import Industries from './components/Industries';
 import WhyChooseUs from './components/WhyChooseUs';
+import HowWeWork from './components/HowWeWork';
 import Testimonials from './components/Testimonials';
-import ThankYouBanner from './components/ThankYouBanner';
 import Footer from './components/Footer';
 import ContactModal from './components/ContactModal';
 
@@ -31,8 +31,8 @@ export default function App() {
         <Services onOpenContactModal={handleOpenContactModal} />
         <Industries onOpenContactModal={handleOpenContactModal} />
         <WhyChooseUs onOpenContactModal={handleOpenContactModal} />
+        <HowWeWork />
         <Testimonials />
-        <ThankYouBanner onOpenContactModal={handleOpenContactModal} />
       </main>
 
       {/* Footer & Location Details */}

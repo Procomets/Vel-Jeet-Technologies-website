@@ -38,10 +38,10 @@ export default function BlackBanner({ onOpenContactModal }) {
               <Zap size={22} color="#FFFFFF" />
             </div>
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#FCA5A5', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#FCA5A5', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 RECRUITMENT DISCOVERY & HIRING AGILITY
               </div>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '0.02em', margin: 0 }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#FFFFFF', letterSpacing: '0.02em', margin: 0 }}>
                 ACCELERATE HIRING DISCOVERY. UNCOMPLICATE HR MANAGEMENT.
               </h2>
             </div>
@@ -52,7 +52,7 @@ export default function BlackBanner({ onOpenContactModal }) {
             style={{
               backgroundColor: '#FFFFFF',
               color: '#0F172A',
-              fontWeight: 800,
+              fontWeight: 600,
               padding: '12px 24px',
               borderRadius: '6px',
               display: 'flex',

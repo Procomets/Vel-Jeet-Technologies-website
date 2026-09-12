@@ -1,118 +1,90 @@
-import React from 'react';
-
-const industryNames = [
-  "IT & ITES",
-  "BPO & KPO",
-  "Manufacturing",
-  "Healthcare",
-  "Retail & E-commerce",
-  "Logistics",
-  "Education",
-  "Financial Services",
-  "Engineering & Construction"
-];
+import React, { useState, useEffect } from 'react';
+import { Layers } from 'lucide-react';
+import { companyProfileData } from '../data/companyData';
 
 export default function Industries() {
-  // Multiply items for seamless, non-stop horizontal marquee scrolling
-  const marqueeItems = [...industryNames, ...industryNames, ...industryNames];
+  const { industries } = companyProfileData;
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const cardGap = isMobile ? 40 : 100;
 
   return (
     <section 
-      id="industries" 
+      id="industries"
+      className="horizontal-marquee-container"
       style={{
-        padding: '60px 0 70px',
         backgroundColor: '#FFFFFF',
-        color: '#0F172A',
         position: 'relative',
+        padding: '60px 0',
+        marginTop: isMobile ? '60px' : '120px',
         overflow: 'hidden'
       }}
     >
-      {/* Title On Top */}
-      <div style={{ maxWidth: '1280px', margin: '0 auto 36px', padding: '0 24px', textAlign: 'center', position: 'relative', zIndex: 2 }}>
-        <h2 
-          style={{ 
-            fontSize: 'clamp(2.2rem, 3.8vw, 3rem)', 
-            fontWeight: 800, 
-            color: '#0F172A',
-            fontFamily: 'var(--font-heading)',
-            letterSpacing: '-0.02em',
-            margin: 0
-          }}
-        >
-          Industries <span style={{ color: '#C41E3A' }}>We Serve</span>
+      {/* Header - Minimal centered style */}
+      <div style={{ textAlign: 'center', marginBottom: '32px', padding: '0 24px' }}>
+        <h2 style={{ 
+          fontSize: '1.25rem', 
+          fontWeight: 900, 
+          color: '#9CA3AF', // Muted gray
+          textTransform: 'uppercase', 
+          letterSpacing: '0.15em',
+          margin: 0
+        }}>
+          Industries We Serve
         </h2>
       </div>
 
-      {/* Fully Borderless Text-Only Horizontal Infinite Scroll Banner */}
+      {/* Horizontal Strip Viewport */}
       <div 
-        className="horizontal-marquee-container"
-        style={{
-          width: '100%',
-          overflow: 'hidden',
-          backgroundColor: 'transparent',
-          padding: '16px 0',
-          position: 'relative'
+        style={{ 
+          width: '100%', 
+          position: 'relative',
+          padding: '20px 0',
+          overflow: 'hidden'
         }}
       >
-        {/* Left & Right Gradient Fade Masks (White Fade) */}
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            bottom: 0,
-            width: '160px',
-            background: 'linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)',
-            zIndex: 5,
-            pointerEvents: 'none'
-          }}
-        />
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            bottom: 0,
-            width: '160px',
-            background: 'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)',
-            zIndex: 5,
-            pointerEvents: 'none'
-          }}
-        />
-
-        {/* Marquee Track */}
         <div className="horizontal-marquee-track">
-          {marqueeItems.map((name, idx) => (
+          {[0, 1].map((setIdx) => (
             <div 
-              key={idx} 
+              key={`set-${setIdx}`}
               style={{
-                display: 'inline-flex',
+                display: 'flex',
                 alignItems: 'center',
-                gap: '36px',
-                paddingRight: '36px'
+                gap: `${cardGap}px`,
+                paddingRight: `${cardGap}px`
               }}
             >
-              <span 
-                style={{
-                  fontSize: 'clamp(1.25rem, 2.1vw, 1.7rem)',
-                  fontWeight: 700,
-                  color: '#475569',
-                  letterSpacing: '0.03em',
-                  fontFamily: 'var(--font-heading)',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {name}
-              </span>
-              <span 
-                style={{ 
-                  color: '#C41E3A', 
-                  fontSize: '1.4rem', 
-                  fontWeight: 900 
-                }}
-              >
-                •
-              </span>
+              {industries.map((ind, idx) => {
+                return (
+                  <div 
+                    key={`${ind.name}-${idx}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      flexShrink: 0
+                    }}
+                  >
+                    <Layers size={22} color="#CBD5E1" strokeWidth={1.5} />
+                    <span style={{ 
+                      fontSize: isMobile ? '16px' : '18px', 
+                      fontWeight: 600, 
+                      color: '#94A3B8', // Light blue-gray text
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {ind.name}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>

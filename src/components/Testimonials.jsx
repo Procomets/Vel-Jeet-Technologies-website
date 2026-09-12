@@ -1,289 +1,289 @@
-import React, { useState, useEffect } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { companyProfileData } from '../data/companyData';
 
 export default function Testimonials() {
   const { testimonials } = companyProfileData;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const isTransitioningRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Auto-play timer: advances slowly every 5 seconds
+  const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     if (isPaused) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [isPaused, testimonials.length]);
+    
+    // Use setTimeout instead of setInterval. Since currentIndex is a dependency,
+    // this effect will re-run and schedule the next slide 4.5s after every change.
+    const timer = setTimeout(() => {
+      if (isTransitioningRef.current) return;
+      isTransitioningRef.current = true;
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setTimeout(() => { isTransitioningRef.current = false; }, 700);
+    }, 4500);
+    
+    return () => clearTimeout(timer);
+  }, [currentIndex, isPaused, testimonials.length]);
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setTimeout(() => { isTransitioningRef.current = false; }, 700);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setTimeout(() => { isTransitioningRef.current = false; }, 700);
   };
 
-  // Helper to calculate 3D card layout position and scaling
+  const handleTouchStart = (e) => {
+    setIsPaused(true);
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    setIsPaused(false);
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const diffX = touchStartXRef.current - e.changedTouches[0].clientX;
+    const diffY = touchStartYRef.current - e.changedTouches[0].clientY;
+
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) handleNext();
+      else handlePrev();
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+  };
+
   const getCardStyle = (index) => {
     const total = testimonials.length;
     let diff = (index - currentIndex + total) % total;
     if (diff > total / 2) diff -= total;
 
+    const transitionCurve = 'all 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+    const offset = isMobile ? 0 : 360; // Spread of side cards
+
     if (diff === 0) {
-      // Active center card
       return {
-        transform: 'translateX(0) scale(1.05)',
+        transform: `translateX(0px) scale(1)`,
         opacity: 1,
         zIndex: 10,
-        boxShadow: '0 25px 50px -12px rgba(196, 30, 58, 0.18), 0 10px 25px rgba(0, 0, 0, 0.08)',
-        border: '2px solid rgba(196, 30, 58, 0.2)',
-        filter: 'none'
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)',
+        pointerEvents: 'auto',
+        transition: transitionCurve
       };
     } else if (diff === 1 || diff === -(total - 1)) {
-      // Right card
       return {
-        transform: 'translateX(40%) scale(0.88)',
-        opacity: 0.55,
+        transform: `translateX(${offset}px) scale(0.85)`,
+        opacity: isMobile ? 0 : 0.6,
         zIndex: 5,
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
-        border: '1px solid #E2E8F0',
-        filter: 'blur(0.5px)'
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.02)',
+        pointerEvents: 'none',
+        transition: transitionCurve
       };
     } else if (diff === -1 || diff === total - 1) {
-      // Left card
       return {
-        transform: 'translateX(-40%) scale(0.88)',
-        opacity: 0.55,
+        transform: `translateX(-${offset}px) scale(0.85)`,
+        opacity: isMobile ? 0 : 0.6,
         zIndex: 5,
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
-        border: '1px solid #E2E8F0',
-        filter: 'blur(0.5px)'
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.02)',
+        pointerEvents: 'none',
+        transition: transitionCurve
       };
     } else {
-      // Hidden cards off-screen
       return {
-        transform: diff > 0 ? 'translateX(80%) scale(0.75)' : 'translateX(-80%) scale(0.75)',
+        transform: diff > 0 ? `translateX(${offset + 200}px) scale(0.7)` : `translateX(-${offset + 200}px) scale(0.7)`,
         opacity: 0,
         zIndex: 1,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        transition: transitionCurve
       };
     }
   };
 
   return (
     <section 
-      id="testimonials" 
       style={{
-        padding: '80px 0 90px',
-        backgroundColor: '#FFFFFF',
+        padding: '100px 0',
+        backgroundColor: '#FAFAFA',
         position: 'relative',
         overflow: 'hidden'
       }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 2 }}>
+      <div style={{ maxWidth: '1440px', margin: '0 auto', position: 'relative' }}>
         
-        {/* Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto 50px' }}>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 3.8vw, 3rem)', fontWeight: 800, color: '#0F172A', fontFamily: 'var(--font-heading)' }}>
-            Client <span style={{ color: '#C41E3A' }}>Testimonials</span>
-          </h2>
-          <p style={{ color: '#64748B', fontSize: '1.05rem', marginTop: '8px' }}>
-            Trusted by leaders across India. Here is what our clients say about partnering with us.
-          </p>
+        {/* Header exact match to reference */}
+        <div style={{ position: 'relative', textAlign: 'center', marginBottom: '80px' }}>
+          {/* Faded background text */}
+          <div style={{ 
+            position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+            fontSize: isMobile ? '4rem' : '8rem', fontWeight: 900, color: '#000000', opacity: 0.03, zIndex: 0,
+            whiteSpace: 'nowrap', pointerEvents: 'none', letterSpacing: '0.02em'
+          }}>
+            Testimonials
+          </div>
+          
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ 
+              color: '#C41E3A', // Vel-Jeet Brand Red
+              fontSize: '0.95rem', fontWeight: 600, marginBottom: '12px' 
+            }}>
+              What Our Clients Say About Us
+            </div>
+            <h2 style={{ fontSize: isMobile ? '2.2rem' : '3rem', fontWeight: 900, color: '#111827', margin: 0 }}>
+              Testimonials
+            </h2>
+          </div>
         </div>
 
-        {/* 3D Carousel Stage */}
+        {/* Carousel Container */}
         <div 
-          style={{
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          {/* Left Arrow (Far left) */}
+          {!isMobile && (
+            <button
+              onClick={handlePrev}
+              style={{
+                position: 'absolute', left: '40px', zIndex: 20,
+                background: 'none', border: 'none', cursor: 'pointer', padding: '10px',
+                color: '#6B7280', transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#111827'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#6B7280'}
+            >
+              <ChevronLeft size={36} strokeWidth={1.5} />
+            </button>
+          )}
+
+          {/* 3D Track */}
+          <div style={{
             position: 'relative',
             height: '380px',
-            maxWidth: '960px',
-            margin: '0 auto',
+            width: '100%',
+            maxWidth: '1000px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
-          }}
-        >
-          {testimonials.map((t, idx) => {
-            const style = getCardStyle(idx);
-            return (
+          }}>
+            {testimonials.map((t, idx) => (
               <div
                 key={idx}
                 style={{
                   position: 'absolute',
-                  width: '580px',
-                  maxWidth: '90%',
+                  width: '100%',
+                  maxWidth: '460px', // Precise width for overlap spacing
                   backgroundColor: '#FFFFFF',
-                  borderRadius: '16px',
-                  padding: '36px',
-                  transition: 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)',
-                  ...style
+                  borderRadius: '12px',
+                  padding: '48px 40px',
+                  textAlign: 'center', // Center aligned exactly like reference
+                  ...getCardStyle(idx)
                 }}
               >
-                {/* Quote Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                  <div 
-                    style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(196, 30, 58, 0.08)',
-                      color: '#C41E3A',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <Quote size={22} />
+                {/* Identity Block */}
+                <div style={{ 
+                  display: 'flex', justifyContent: 'center', alignItems: 'center', 
+                  gap: '16px', marginBottom: '24px' 
+                }}>
+                  {/* Avatar */}
+                  <div style={{
+                    width: '64px', height: '64px', borderRadius: '50%',
+                    backgroundColor: '#F3F4F6',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    overflow: 'hidden', flexShrink: 0
+                  }}>
+                    {t.image ? (
+                      <img src={t.image} alt={t.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <span style={{ fontWeight: 600, fontSize: '1.2rem', color: '#4B5563' }}>
+                        {t.name.charAt(0)}
+                      </span>
+                    )}
                   </div>
-                  <div style={{ display: 'flex', gap: '3px' }}>
-                    {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} size={16} fill="#F59E0B" color="#F59E0B" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Quote Text */}
-                <p 
-                  style={{
-                    fontSize: '1.08rem',
-                    color: '#334155',
-                    lineHeight: 1.65,
-                    fontStyle: 'italic',
-                    marginBottom: '28px',
-                    minHeight: '75px'
-                  }}
-                >
-                  "{t.quote}"
-                </p>
-
-                {/* Author Details */}
-                <div 
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '14px',
-                    paddingTop: '20px',
-                    borderTop: '1px solid #F1F5F9'
-                  }}
-                >
-                  <div 
-                    style={{
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #C41E3A 0%, #991B1B 100%)',
-                      color: '#FFFFFF',
-                      fontWeight: 800,
-                      fontSize: '1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(196, 30, 58, 0.3)'
-                    }}
-                  >
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0F172A' }}>
+                  
+                  {/* Name & Role */}
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 600, fontSize: '1.15rem', color: '#111827', marginBottom: '4px' }}>
                       {t.name}
                     </div>
-                    <div style={{ fontSize: '0.84rem', color: '#C41E3A', fontWeight: 700 }}>
+                    <div style={{ fontSize: '0.95rem', color: '#6B7280' }}>
                       {t.role}
+                    </div>
+                    {/* Tiny stars to respect existing data without breaking layout */}
+                    <div style={{ display: 'flex', gap: '2px', marginTop: '4px' }}>
+                      {[...Array(t.rating || 5)].map((_, i) => (
+                        <Star key={i} size={12} fill="#F97316" color="#F97316" />
+                      ))}
                     </div>
                   </div>
                 </div>
+
+                {/* Centered Quote */}
+                <p style={{
+                  fontSize: '1.05rem',
+                  lineHeight: 1.65,
+                  color: '#4B5563',
+                  margin: 0
+                }}>
+                  "{t.quote}"
+                </p>
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Right Arrow (Far right) */}
+          {!isMobile && (
+            <button
+              onClick={handleNext}
+              style={{
+                position: 'absolute', right: '40px', zIndex: 20,
+                background: 'none', border: 'none', cursor: 'pointer', padding: '10px',
+                color: '#6B7280', transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#111827'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#6B7280'}
+            >
+              <ChevronRight size={36} strokeWidth={1.5} />
+            </button>
+          )}
         </div>
 
-        {/* Navigation Controls (< 1 of 5 >) */}
-        <div 
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '20px',
-            marginTop: '36px'
-          }}
-        >
-          <button
-            onClick={handlePrev}
-            aria-label="Previous testimonial"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: '#F1F5F9',
-              color: '#0F172A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid #E2E8F0',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#C41E3A';
-              e.currentTarget.style.color = '#FFFFFF';
-              e.currentTarget.style.borderColor = '#C41E3A';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#F1F5F9';
-              e.currentTarget.style.color = '#0F172A';
-              e.currentTarget.style.borderColor = '#E2E8F0';
-            }}
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          <span 
-            style={{
-              fontSize: '1rem',
-              fontWeight: 800,
-              color: '#0F172A',
-              letterSpacing: '0.05em',
-              fontFamily: 'var(--font-heading)',
-              minWidth: '70px',
-              textAlign: 'center'
-            }}
-          >
-            {currentIndex + 1} of {testimonials.length}
-          </span>
-
-          <button
-            onClick={handleNext}
-            aria-label="Next testimonial"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: '#F1F5F9',
-              color: '#0F172A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid #E2E8F0',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#C41E3A';
-              e.currentTarget.style.color = '#FFFFFF';
-              e.currentTarget.style.borderColor = '#C41E3A';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#F1F5F9';
-              e.currentTarget.style.color = '#0F172A';
-              e.currentTarget.style.borderColor = '#E2E8F0';
-            }}
-          >
-            <ChevronRight size={20} />
-          </button>
+        {/* Dot Pagination */}
+        <div style={{ 
+          display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '24px' 
+        }}>
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                if (isTransitioningRef.current || idx === currentIndex) return;
+                setCurrentIndex(idx);
+              }}
+              style={{
+                width: '10px', height: '10px', borderRadius: '50%',
+                padding: 0, border: 'none',
+                backgroundColor: currentIndex === idx ? '#9CA3AF' : '#E5E7EB',
+                transition: 'background-color 300ms ease',
+                cursor: 'pointer'
+              }}
+              aria-label={`Go to testimonial ${idx + 1}`}
+            />
+          ))}
         </div>
 
       </div>

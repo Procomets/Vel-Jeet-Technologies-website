@@ -37,7 +37,8 @@ export const companyProfileData = {
       fullDesc: "Our Permanent Staffing solution delivers end-to-end talent acquisition for core, long-term organizational roles. We perform rigorous skill evaluations, cultural alignment checks, and background verifications to ensure candidate longevity and performance.",
       icon: "Users",
       deliverables: ["Comprehensive Sourcing", "Rigorous Multi-Tier Interviewing", "Culture & Leadership Fit Assessment", "Post-Placement Support"],
-      targetRoles: "Mid-level to Senior Management, Domain Specialists, Technical Lead Engineers"
+      targetRoles: "Mid-level to Senior Management, Domain Specialists, Technical Lead Engineers",
+      image: "/images/hr_permanent_staffing.jpg"
     },
     {
       id: "executive-search",
@@ -46,7 +47,8 @@ export const companyProfileData = {
       fullDesc: "We offer confidential and strategic executive headhunting services designed to identify, attract, and secure high-impact C-suite executives, directors, and rare technical domain experts who drive corporate strategy.",
       icon: "UserCheck",
       deliverables: ["Confidential Executive Mapping", "Discrete Direct Headhunting", "Leadership Competency Evaluation", "Board & C-Suite Advisory"],
-      targetRoles: "CEO, CTO, CFO, VP of Operations, Country Managers, General Managers"
+      targetRoles: "CEO, CTO, CFO, VP of Operations, Country Managers, General Managers",
+      image: "/images/hr_executive_search.jpg"
     },
     {
       id: "bulk-hiring",
@@ -55,7 +57,8 @@ export const companyProfileData = {
       fullDesc: "Designed for rapidly expanding enterprises, new project rollouts, or seasonal volume hiring spikes. Our automated candidate pipeline allows us to conduct rapid volume drives without compromising candidate quality.",
       icon: "Layers",
       deliverables: ["Custom Campus Drives", "Rapid Assessment Days", "Volume Aptitude & Behavioral Screening", "Batch Onboarding Management"],
-      targetRoles: "BPO/KPO Support Agents, Production Operators, Field Executives, Customer Service Reps"
+      targetRoles: "BPO/KPO Support Agents, Production Operators, Field Executives, Customer Service Reps",
+      image: "/images/hr_bulk_hiring.jpg"
     },
     {
       id: "payroll-management",
@@ -64,7 +67,8 @@ export const companyProfileData = {
       fullDesc: "Streamline your monthly payroll operations with our 100% compliant and secure payroll management services. We handle salary computations, PF/ESI statutory deposits, TDS deductions, and employee tax filings accurately.",
       icon: "Calculator",
       deliverables: ["Automated Monthly Salary Disbursal", "PF / ESI / Statutory Compliance", "Form 16 & Tax Computation", "Direct Payroll Helpdesk"],
-      targetRoles: "Complete Organization Payroll Management for SMEs & Enterprises"
+      targetRoles: "Complete Organization Payroll Management for SMEs & Enterprises",
+      image: "/images/hr_payroll_management.jpg"
     },
     {
       id: "hr-outsourcing",
@@ -73,7 +77,8 @@ export const companyProfileData = {
       fullDesc: "Scale your organization efficiently without overhead costs by outsourcing your operational HR functions to Vel Jeet Technologies. From policy creation to performance appraisals and exit management, we cover your complete HR lifecycle.",
       icon: "ShieldCheck",
       deliverables: ["HR Policy Framework & Handbook", "Performance Appraisal Systems", "Employee Engagement Initiatives", "Labor Law Compliance Audit"],
-      targetRoles: "Complete HR Department Outsourcing for Growing Startups & Enterprises"
+      targetRoles: "Complete HR Department Outsourcing for Growing Startups & Enterprises",
+      image: "/images/hr_outsourcing_new.jpg"
     }
   ],
 
@@ -91,34 +96,24 @@ export const companyProfileData = {
 
   whyChooseUs: [
     {
-      title: "Experienced Recruitment Professionals",
-      desc: "Our senior recruitment specialists bring years of hands-on industry expertise to identify the exact talent required for your business.",
-      icon: "Award"
+      title: "RIGHT TALENT",
+      desc: "Connect businesses with candidates aligned to their requirements.",
+      icon: "Users"
     },
     {
-      title: "Customized Hiring Solutions",
-      desc: "We don't believe in generic temping. Every recruitment drive is customized around your technical specifications and corporate culture.",
-      icon: "Sliders"
-    },
-    {
-      title: "Wide Talent Network Across India",
-      desc: "Extensive talent database spanning Chennai, Tamil Nadu, and major industrial hubs across India for fast nationwide recruitment.",
-      icon: "Globe"
-    },
-    {
-      title: "Fast Turnaround Time",
-      desc: "Accelerated candidate sourcing pipelines that drastically reduce your time-to-fill without diluting quality or assessment standards.",
+      title: "FASTER HIRING",
+      desc: "Streamlined recruitment processes designed to reduce time-to-hire.",
       icon: "Zap"
     },
     {
-      title: "Cost-Effective & Scalable Services",
-      desc: "Flexible commercial models tailored to startups, growing SMEs, and enterprise corporations to maximize ROI on human capital.",
+      title: "LONG-TERM PARTNERSHIP",
+      desc: "Support businesses beyond the initial placement.",
       icon: "TrendingUp"
     },
     {
-      title: "Strong Focus on Quality & Compliance",
-      desc: "Full statutory compliance, background checks, and stringent quality assurance across every candidate placement.",
-      icon: "CheckCircle"
+      title: "INDUSTRY EXPERTISE",
+      desc: "Solutions tailored to different industries and workforce needs.",
+      icon: "Briefcase"
     }
   ],
 

@@ -54,10 +54,10 @@ export default function ContactModal({ isOpen, onClose }) {
               }} 
             />
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#FCA5A5', letterSpacing: '0.1em' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#FCA5A5', letterSpacing: '0.1em' }}>
                 DIRECT HIRING INQUIRY
               </div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
                 Partner With <span style={{ color: '#FCA5A5' }}>Vel Jeet Technologies</span>
               </h3>
             </div>
@@ -99,7 +99,7 @@ export default function ContactModal({ isOpen, onClose }) {
               >
                 <CheckCircle size={36} />
               </div>
-              <h4 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>Inquiry Submitted Successfully!</h4>
+              <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A' }}>Inquiry Submitted Successfully!</h4>
               <p style={{ color: '#64748B', marginTop: '8px' }}>
                 Thank you for contacting Vel Jeet Technologies. Our senior HR consultant will contact you within 2 business hours.
               </p>
@@ -109,7 +109,7 @@ export default function ContactModal({ isOpen, onClose }) {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                     Full Name *
                   </label>
                   <div style={{ position: 'relative' }}>
@@ -133,7 +133,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                     Company Name *
                   </label>
                   <div style={{ position: 'relative' }}>
@@ -159,7 +159,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                     Work Email *
                   </label>
                   <div style={{ position: 'relative' }}>
@@ -183,7 +183,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                     Phone / WhatsApp *
                   </label>
                   <div style={{ position: 'relative' }}>
@@ -208,7 +208,7 @@ export default function ContactModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                   Service Required
                 </label>
                 <select
@@ -232,7 +232,7 @@ export default function ContactModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                   Hiring Requirements & Details
                 </label>
                 <textarea 

@@ -17,7 +17,7 @@ export default function Overview({ onOpenContactModal }) {
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
         
         {/* Two Column Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
+        <div className="overview-grid">
           
           {/* Left Column: Image with Red Layered Box Offset */}
           <div style={{ position: 'relative' }}>
@@ -50,12 +50,7 @@ export default function Overview({ onOpenContactModal }) {
               <img 
                 src="/images/about.jpg" 
                 alt="Vel Jeet Technologies Team Consultation"
-                style={{
-                  width: '100%',
-                  height: '420px',
-                  objectFit: 'cover',
-                  display: 'block'
-                }}
+                className="overview-image"
               />
             </div>
 
@@ -85,13 +80,13 @@ export default function Overview({ onOpenContactModal }) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontWeight: 800
+                  fontWeight: 900
                 }}
               >
                 ✓
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: '0.95rem' }}>Client-Focused Partner</div>
+                <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>Client-Focused Partner</div>
                 <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>Based in Chennai, India</div>
               </div>
             </div>
@@ -99,39 +94,39 @@ export default function Overview({ onOpenContactModal }) {
           </div>
 
           {/* Right Column: Paragraph Content & Highlights */}
-          <div>
-            <h2 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>
+          <div className="overview-text-col">
+            <h2 className="overview-h2">
               What is <span style={{ color: '#C41E3A' }}>Vel Jeet Technologies?</span>
             </h2>
 
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#000000ff', marginBottom: '16px', lineHeight: 1.35 }}>
+            <h3 className="overview-h3">
               {overview.subtitle}
             </h3>
 
-            <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: 1.6, marginBottom: '14px' }}>
+            <p className="overview-p" style={{ marginBottom: '16px' }}>
               <strong>VEL JEET TECHNOLOGIES</strong> is a dynamic and client-focused recruitment partner based in Chennai, India. We specialize in providing end-to-end human resource solutions tailored to meet the diverse hiring needs of businesses across industries.
             </p>
 
-            <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: 1.6, marginBottom: '22px' }}>
+            <p className="overview-p" style={{ marginBottom: '28px' }}>
               Founded with a vision to bridge the gap between talent and opportunity, we combine industry knowledge, innovative sourcing strategies, and deep client alignment to deliver the right people for the right roles.
             </p>
 
             {/* Core Values Checklist */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '26px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 700, color: '#1E293B' }}>
-                <CheckCircle size={16} color="#C41E3A" />
+            <div className="core-values-grid">
+              <div className="overview-check">
+                <CheckCircle size={18} color="#C41E3A" />
                 Industry Knowledge
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 700, color: '#1E293B' }}>
-                <CheckCircle size={16} color="#C41E3A" />
+              <div className="overview-check">
+                <CheckCircle size={18} color="#C41E3A" />
                 Innovative Sourcing
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 700, color: '#1E293B' }}>
-                <CheckCircle size={16} color="#C41E3A" />
+              <div className="overview-check">
+                <CheckCircle size={18} color="#C41E3A" />
                 Deep Talent Network
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 700, color: '#1E293B' }}>
-                <CheckCircle size={16} color="#C41E3A" />
+              <div className="overview-check">
+                <CheckCircle size={18} color="#C41E3A" />
                 Tailored Solutions
               </div>
             </div>
@@ -149,6 +144,93 @@ export default function Overview({ onOpenContactModal }) {
         </div>
 
       </div>
+
+      <style>
+        {`
+          .overview-grid {
+            display: grid;
+            grid-template-columns: 5fr 6fr; /* Give text slightly more room than image on large screens */
+            gap: 80px;
+            align-items: center;
+          }
+          
+          .overview-image {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            display: block;
+          }
+
+          .overview-h2 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 16px;
+            line-height: 1.2;
+          }
+
+          .overview-h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+            line-height: 1.35;
+          }
+
+          .overview-p {
+            font-size: 1.1rem;
+            color: #475569;
+            line-height: 1.6;
+          }
+
+          .overview-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1E293B;
+          }
+          
+          .core-values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+          }
+
+          @media (max-width: 992px) {
+            .overview-grid {
+              grid-template-columns: 1fr;
+              gap: 60px;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .overview-grid {
+              gap: 40px;
+            }
+            .core-values-grid {
+              grid-template-columns: 1fr;
+            }
+            .overview-image {
+              height: 320px;
+            }
+            .overview-h2 {
+              font-size: 2.1rem;
+            }
+            .overview-h3 {
+              font-size: 1.25rem;
+            }
+            .overview-p {
+              font-size: 0.94rem;
+            }
+            .overview-check {
+              font-size: 0.88rem;
+            }
+          }
+        `}
+      </style>
     </section>
   );
 }

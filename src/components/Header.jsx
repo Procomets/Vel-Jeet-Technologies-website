@@ -106,20 +106,20 @@ export default function Header({ onOpenContactModal }) {
                 display: 'block' 
               }} 
             />
-            <span style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+            <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
               Vel Jeet Technologies
             </span>
           </a>
 
           {/* Desktop Nav Links */}
           <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-            <a href="#overview" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Overview</a>
-            <a href="#mission" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Mission</a>
-            <a href="#services" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Services</a>
-            <a href="#industries" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Industries</a>
-            <a href="#why-choose-us" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Why Us</a>
-            <a href="#testimonials" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Testimonials</a>
-            <a href="#contact" style={{ fontWeight: 600, fontSize: '0.88rem', color: '#334155' }}>Contact</a>
+            <a href="#overview" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Overview</a>
+            <a href="#mission" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Mission</a>
+            <a href="#services" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Services</a>
+            <a href="#industries" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Industries</a>
+            <a href="#why-choose-us" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Why Us</a>
+            <a href="#testimonials" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Testimonials</a>
+            <a href="#contact" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Contact</a>
           </nav>
 
           {/* Primary Contact CTA */}
