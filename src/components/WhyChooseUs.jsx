@@ -34,9 +34,9 @@ const benefitsList = [
 
 const desktopBenefitsList = [
   { num: '01', title: 'RIGHT TALENT', desc: 'The right people for the right roles.' },
-  { num: '02', title: 'FASTER HIRING', desc: 'Connecting you with qualified talent, faster.' },
-  { num: '03', title: 'LONG-TERM PARTNERSHIP', desc: 'Building relationships beyond the first hire.' },
-  { num: '04', title: 'INDUSTRY EXPERTISE', desc: 'Talent solutions shaped around your industry.' }
+  { num: '02', title: 'FASTER HIRING', desc: 'Connecting qualified talent, faster.' },
+  { num: '03', title: 'LONG-TERM PARTNERSHIP', desc: 'Building relationships beyond hiring.' },
+  { num: '04', title: 'INDUSTRY EXPERTISE', desc: 'Tailored solutions for your industry.' }
 ];
 
 export default function WhyChooseUs({ onOpenContactModal }) {
@@ -127,80 +127,42 @@ export default function WhyChooseUs({ onOpenContactModal }) {
   };
 
   const renderMobileContent = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', position: 'relative', zIndex: 10 }}>
-      <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-        {mobilePortraits.slice(0, 2).map((p, i) => (
-          <div 
-            key={i}
-            style={{
-              width: '130px', height: '180px', borderRadius: '16px',
-              backgroundImage: `url(${p.url})`, backgroundSize: 'cover', backgroundPosition: 'center',
-              boxShadow: '0 8px 24px rgba(15, 23, 42, 0.06)', border: '4px solid #FFFFFF',
-              ...getEntranceStyle(1, i)
-            }}
-          />
-        ))}
-      </div>
-
-      <div style={{ textAlign: 'center', maxWidth: '550px', margin: '0 auto', padding: '0 20px' }}>
-        <div style={getEntranceStyle(2, 0)}>
-          <span style={{ 
-            display: 'inline-block', fontSize: '0.8rem', fontWeight: 600, color: '#0F172A', 
-            textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px',
-            padding: '6px 16px', backgroundColor: '#F8FAFC', borderRadius: '20px', border: '1px solid #E2E8F0'
-          }}>
-            Why Vel-Jeet
-          </span>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', position: 'relative', zIndex: 10 }}>
+      <div style={{ textAlign: 'center', maxWidth: '550px', margin: '0 auto', padding: '0 10px' }}>
         <h2 style={{ 
-          fontSize: 'clamp(2.2rem, 4vw, 2.8rem)', fontWeight: 900, color: '#0F172A', 
-          lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '16px', ...getEntranceStyle(2, 1)
+          fontSize: 'clamp(1.6rem, 3vw, 2.1rem)', fontWeight: 800, color: '#0F172A', 
+          lineHeight: 1.2, letterSpacing: '-0.02em', marginBottom: '20px'
         }}>
           Why Businesses Choose <span style={{ color: '#C41E3A' }}>Vel-Jeet</span>
         </h2>
-        <p style={{ color: '#64748B', fontSize: '1.05rem', lineHeight: 1.6, fontWeight: 400, ...getEntranceStyle(2, 2) }}>
-          More than recruitment. A workforce partner built around your business.
-        </p>
-        <div style={getEntranceStyle(2, 3)}>
+        
+        {/* 4 Benefits Row */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr', gap: '16px', textAlign: 'left', margin: '0 0 32px 0'
+        }}>
+          {benefitsList.map((b) => (
+            <div key={b.title} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ color: '#334155', fontWeight: 600, fontSize: '0.95rem', letterSpacing: '0.02em', textTransform: 'uppercase' }}>
+                {b.title}
+              </div>
+              <p style={{ color: '#64748B', fontSize: '0.9rem', lineHeight: 1.5, margin: 0 }}>{b.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div>
           <a 
             href="#contact"
             onClick={(e) => { e.preventDefault(); onOpenContactModal && onOpenContactModal(); }}
             style={{
               display: 'inline-flex', alignItems: 'center', backgroundColor: '#C41E3A', color: '#FFFFFF',
               padding: '14px 32px', borderRadius: '40px', fontWeight: 600, fontSize: '1.05rem',
-              textDecoration: 'none', marginTop: '24px', boxShadow: '0 8px 24px rgba(196, 30, 58, 0.25)'
+              textDecoration: 'none', boxShadow: '0 8px 24px rgba(196, 30, 58, 0.25)'
             }}
           >
             Let's Work Together <ArrowRight size={18} style={{ marginLeft: '10px' }} />
           </a>
         </div>
-      </div>
-
-      <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-        {mobilePortraits.slice(2, 4).map((p, i) => (
-          <div 
-            key={i + 2}
-            style={{
-              width: '130px', height: '180px', borderRadius: '16px',
-              backgroundImage: `url(${p.url})`, backgroundSize: 'cover', backgroundPosition: 'center',
-              boxShadow: '0 8px 24px rgba(15, 23, 42, 0.06)', border: '4px solid #FFFFFF',
-              ...getEntranceStyle(1, i + 2)
-            }}
-          />
-        ))}
-      </div>
-
-      <div style={{
-        display: 'grid', gridTemplateColumns: '1fr', gap: '40px', marginTop: '40px',
-        paddingTop: '40px', borderTop: '1px solid #E2E8F0', textAlign: 'left', width: '100%'
-      }}>
-        {benefitsList.map((b, i) => (
-          <div key={b.num} style={getEntranceStyle(3, i)}>
-            <div style={{ color: '#C41E3A', fontWeight: 600, fontSize: '0.9rem', marginBottom: '16px', letterSpacing: '0.05em' }}>{b.num}</div>
-            <h4 style={{ color: '#0F172A', fontWeight: 600, fontSize: '1.1rem', marginBottom: '16px', letterSpacing: '0.02em' }}>{b.title}</h4>
-            <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6, margin: 0 }}>{b.desc}</p>
-          </div>
-        ))}
       </div>
     </div>
   );
@@ -210,188 +172,87 @@ export default function WhyChooseUs({ onOpenContactModal }) {
       
       {/* LEVEL 1: Portrait Gallery Wave */}
       <div style={{ height: 0, position: 'relative', width: '100%' }}>
-        {/* Subtle Dashed Guide Lines dropping from the column centers */}
-        {columns.map((c, i) => {
-          const left = getPos(c.x + c.w / 2, 0).left;
-          const isCenterLine = i >= 2 && i <= 6;
-          const h = isCenterLine ? '320px' : '520px';
-          
-          return (
-            <div key={`guide-${i}`} style={{ 
-              position: 'absolute', top: 0, left, 
-              width: '1px', height: h, 
-              borderLeft: '1px dashed #CBD5E1',
-              opacity: 0.6,
-              zIndex: 1 
+        {desktopPortraits.map((p, i) => (
+          <div 
+            key={`p-${i}`} 
+            style={{
+              position: 'absolute',
+              top: p.top, left: p.left,
+              width: isTablet ? `${parseInt(p.width) * 0.9}px` : p.width,
+              height: isTablet ? `${parseInt(p.height) * 0.9}px` : p.height,
+              zIndex: 10
+            }}
+          >
+            <div style={{
+              width: '100%', height: '100%',
+              borderRadius: '16px',
+              backgroundImage: `url(${p.url})`,
+              backgroundSize: 'cover', backgroundPosition: 'center',
+              backgroundColor: '#FFFFFF',
+              border: '3px solid #FFFFFF',
+              boxShadow: '0 8px 24px rgba(15, 23, 42, 0.05)'
             }} />
-          );
-        })}
-
-        {desktopPortraits.map((p, i) => {
-          const mappedBenefit = getMappedBenefit(i);
-          
-          let isHighlighted = false;
-          let isFaded = false;
-
-          if (hoveredBenefit !== null) {
-            if (mappedBenefit === hoveredBenefit) isHighlighted = true;
-            else isFaded = true;
-          } else if (hoveredIndex !== null) {
-            if (hoveredIndex === i) isHighlighted = true;
-            else isFaded = true;
-          }
-
-          return (
-            <div 
-              key={`p-${i}`} 
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              style={{
-                position: 'absolute',
-                top: p.top, left: p.left,
-                width: isTablet ? `${parseInt(p.width) * 0.9}px` : p.width,
-                height: isTablet ? `${parseInt(p.height) * 0.9}px` : p.height,
-                zIndex: isHighlighted ? 20 : 10,
-                ...getEntranceStyle(1, i)
-              }}
-            >
-              <div style={{
-                width: '100%', height: '100%',
-                borderRadius: '16px',
-                backgroundImage: `url(${p.url})`,
-                backgroundSize: 'cover', backgroundPosition: 'center',
-                backgroundColor: '#FFFFFF',
-                border: '3px solid #FFFFFF',
-                boxShadow: isHighlighted ? '0 0 0 2px rgba(196, 30, 58, 0.1), 0 16px 40px rgba(15, 23, 42, 0.15)' : '0 8px 24px rgba(15, 23, 42, 0.05)',
-                opacity: isFaded ? 0.88 : 1,
-                transform: isHighlighted ? 'scale(1.04) translateY(-5px)' : 'scale(1) translateY(0)',
-                transition: 'all 350ms ease-out',
-                cursor: 'pointer'
-              }} />
-            </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
 
-      {/* LEVEL 2: Central Safe Zone & Message */}
+      {/* LEVEL 2: Central Content & 4 Benefits Directly Below */}
       <div style={{ 
         textAlign: 'center',
-        maxWidth: '700px',
+        maxWidth: '1180px',
         margin: '380px auto 0',
         position: 'relative',
         zIndex: 30
       }}>
-        <div style={getEntranceStyle(2, 0)}>
-          <span style={{ 
-            display: 'inline-block', fontSize: '0.8rem', fontWeight: 600, color: '#0F172A', 
-            textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '24px',
-            padding: '6px 16px', backgroundColor: '#FFFFFF', borderRadius: '20px', border: '1px solid #E2E8F0',
-            boxShadow: '0 2px 10px rgba(15, 23, 42, 0.02)'
-          }}>
-            Why Vel-Jeet
-          </span>
-        </div>
-
         <h2 style={{ 
-          fontSize: 'clamp(2.4rem, 4.5vw, 3.4rem)', fontWeight: 900, color: '#0F172A', 
-          lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '20px', ...getEntranceStyle(2, 1)
+          fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)', fontWeight: 800, color: '#0F172A', 
+          lineHeight: 1.2, letterSpacing: '-0.02em', marginBottom: '28px'
         }}>
           Why Businesses Choose <br/><span style={{ color: '#C41E3A' }}>Vel-Jeet</span>
         </h2>
         
-        <p style={{ 
-          color: '#64748B', fontSize: '1.15rem', lineHeight: 1.6, fontWeight: 400,
-          maxWidth: '500px', margin: '0 auto', ...getEntranceStyle(2, 2)
+        {/* 4 Benefits Row - Static & Displayed Directly Below Title */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: isTablet ? '16px' : '24px',
+          textAlign: 'left',
+          width: '100%',
+          marginBottom: '48px'
         }}>
-          More than recruitment. A workforce partner built around your business.
-        </p>
+          {desktopBenefitsList.map((b) => (
+            <div key={b.title} style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: 0 }}>
+              <div style={{ 
+                color: '#334155', 
+                fontWeight: 600, 
+                fontSize: '0.92rem', 
+                letterSpacing: '0.02em', 
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap'
+              }}>
+                {b.title}
+              </div>
+              <p style={{ color: '#64748B', fontSize: 'clamp(0.78rem, 0.88vw, 0.86rem)', lineHeight: 1.5, margin: 0, whiteSpace: 'nowrap' }}>
+                {b.desc}
+              </p>
+            </div>
+          ))}
+        </div>
 
-        <div style={getEntranceStyle(2, 3)}>
+        <div>
           <a 
             href="#contact"
             onClick={(e) => { e.preventDefault(); onOpenContactModal && onOpenContactModal(); }}
             style={{
               display: 'inline-flex', alignItems: 'center', backgroundColor: '#C41E3A', color: '#FFFFFF',
               padding: '16px 36px', borderRadius: '40px', fontWeight: 600, fontSize: '1.05rem',
-              textDecoration: 'none', marginTop: '40px', boxShadow: '0 8px 24px rgba(196, 30, 58, 0.25)',
-              transition: 'all 0.2s ease-out'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 12px 30px rgba(196, 30, 58, 0.35)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(196, 30, 58, 0.25)';
+              textDecoration: 'none', boxShadow: '0 8px 24px rgba(196, 30, 58, 0.25)'
             }}
           >
             Let's Work Together <ArrowRight size={18} style={{ marginLeft: '10px' }} />
           </a>
         </div>
-      </div>
 
-      {/* LEVEL 3: Interactive Benefit Navigation Row */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: isTablet ? '24px' : '48px',
-        margin: '80px auto 0',
-        position: 'relative',
-        zIndex: 40,
-        maxWidth: '1080px',
-        height: '120px' // Fixed height container prevents layout shift when description drops down
-      }}>
-        {desktopBenefitsList.map((b, i) => {
-          const isHovered = hoveredBenefit === i || (hoveredIndex !== null && getMappedBenefit(hoveredIndex) === i);
-          
-          return (
-            <div 
-              key={`nav-${i}`}
-              onMouseEnter={() => setHoveredBenefit(i)}
-              onMouseLeave={() => setHoveredBenefit(null)}
-              style={{
-                flex: 1,
-                maxWidth: '220px',
-                textAlign: 'left',
-                cursor: 'pointer',
-                ...getEntranceStyle(3, i)
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                <span style={{ 
-                  color: isHovered ? '#C41E3A' : '#94A3B8', 
-                  fontWeight: 600, 
-                  fontSize: '0.85rem', 
-                  transition: 'color 300ms ease' 
-                }}>
-                  {b.num}
-                </span>
-                <span style={{ 
-                  color: isHovered ? '#0F172A' : '#475569', 
-                  fontWeight: 600, 
-                  fontSize: '1rem', 
-                  letterSpacing: '0.02em',
-                  transition: 'color 300ms ease'
-                }}>
-                  {b.title}
-                </span>
-              </div>
-              
-              {/* Smoothly animated description reveal */}
-              <div style={{
-                opacity: isHovered ? 1 : 0,
-                transform: isHovered ? 'translateY(0)' : 'translateY(5px)',
-                transition: 'all 300ms ease-out',
-                marginTop: '12px',
-                pointerEvents: isHovered ? 'auto' : 'none'
-              }}>
-                <p style={{ color: '#64748B', fontSize: '0.9rem', lineHeight: 1.5, margin: 0 }}>
-                  {b.desc}
-                </p>
-              </div>
-            </div>
-          );
-        })}
       </div>
 
     </div>
@@ -401,8 +262,8 @@ export default function WhyChooseUs({ onOpenContactModal }) {
     <section 
       id="why-choose-us" 
       style={{
-        padding: isMobile ? '40px 16px' : '80px 24px',
-        backgroundColor: 'transparent'
+        padding: isMobile ? '30px 16px' : '50px 24px',
+        backgroundColor: '#FFFFFF'
       }}
     >
       <div 
@@ -411,7 +272,7 @@ export default function WhyChooseUs({ onOpenContactModal }) {
           maxWidth: '1440px',
           margin: '0 auto',
           position: 'relative',
-          padding: isMobile ? '0' : '0 0 60px 0'
+          padding: '0'
         }}
       >
         {isMobile ? renderMobileContent() : renderDesktopContent()}

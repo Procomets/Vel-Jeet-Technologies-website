@@ -6,7 +6,7 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
 
 export default function MissionVision() {
   const { mission, vision } = companyProfileData.missionVision;
-  
+
   const [scrollProgress, setScrollProgress] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1440);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -15,12 +15,12 @@ export default function MissionVision() {
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
-    
+
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
     const handler = (e) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener('change', handler);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       mediaQuery.removeEventListener('change', handler);
@@ -45,7 +45,7 @@ export default function MissionVision() {
           if (sectionRef.current) {
             const rect = sectionRef.current.getBoundingClientRect();
             const scrollPastPin = -rect.top;
-            
+
             if (scrollPastPin >= 0 && scrollPastPin <= scrollTrackHeight) {
               setScrollProgress(scrollPastPin / scrollTrackHeight);
             } else if (scrollPastPin < 0) {
@@ -69,10 +69,10 @@ export default function MissionVision() {
 
   // We want the expansion to happen mostly between 0.1 and 0.9 for a smooth feel.
   const easedProgress = Math.min(Math.max((scrollProgress - 0.1) / 0.8, 0), 1);
-  
+
   // Ease-in-out curve for cinematic feel
-  const smoothProgress = easedProgress < 0.5 
-    ? 2 * easedProgress * easedProgress 
+  const smoothProgress = easedProgress < 0.5
+    ? 2 * easedProgress * easedProgress
     : 1 - Math.pow(-2 * easedProgress + 2, 2) / 2;
 
   // Clip-path inset logic:
@@ -81,18 +81,18 @@ export default function MissionVision() {
   const insetY = interpolate(17.5, 0, smoothProgress); // vh
   const borderRadius = interpolate(24, 0, smoothProgress); // px
   const clipPath = `inset(${insetY}vh ${insetX}vw ${insetY}vh ${insetX}vw round ${borderRadius}px)`;
-  
-  const imageScale = interpolate(1.2, 1.0, smoothProgress); 
-  
+
+  const imageScale = interpolate(1.2, 1.0, smoothProgress);
+
   // Title fades out early (0 to 0.3)
   const titleOpacity = Math.max(1 - (scrollProgress * 3), 0);
   const titleTranslateY = interpolate(0, -40, Math.min(scrollProgress * 3, 1));
-  
+
   // Content fades in late (0.6 to 1.0)
   const contentProgress = Math.max((scrollProgress - 0.6) / 0.4, 0);
   const contentOpacity = contentProgress;
   const contentTranslateY = interpolate(40, 0, contentProgress);
-  
+
   // Vision stagger (0.65 to 1.0)
   const visionProgress = Math.max((scrollProgress - 0.65) / 0.35, 0);
   const visionOpacity = visionProgress;
@@ -103,26 +103,23 @@ export default function MissionVision() {
   if (!shouldUseScrollAnimation) {
     // Mobile or Reduced Motion Fallback
     return (
-      <section id="mission" style={{ padding: '80px 0', backgroundColor: '#FDFBF7', marginBottom: '80px' }}>
+      <section id="mission" style={{ padding: '60px 0', backgroundColor: '#FFFFFF', marginBottom: '0' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          
+
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#C41E3A', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-              Core Purpose
-            </span>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', marginTop: '8px' }}>
               Our Mission & Vision
             </h2>
           </div>
 
           <div style={{ borderRadius: '20px', overflow: 'hidden', height: '300px', marginBottom: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-            <img 
-              src="/images/our_mission_vision.png" 
-              alt="Mission & Vision" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            <img
+              src="/images/our_mission_vision.png"
+              alt="Mission & Vision"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
-            
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {/* Mission Panel */}
             <div style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', padding: '32px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', border: '1px solid #F1F5F9' }}>
@@ -161,14 +158,14 @@ export default function MissionVision() {
 
   // Desktop Cinematic ScrollExpand Experience
   return (
-    <section 
-      id="mission" 
+    <section
+      id="mission"
       ref={sectionRef}
       style={{
-        backgroundColor: '#FDFBF7',
+        backgroundColor: '#FFFFFF',
         position: 'relative',
         height: typeof totalSectionHeight === 'number' ? `${totalSectionHeight}px` : totalSectionHeight,
-        marginBottom: '120px'
+        marginBottom: '0'
       }}
     >
       <div
@@ -183,9 +180,9 @@ export default function MissionVision() {
           overflow: 'hidden'
         }}
       >
-        
+
         {/* The Expanding Frame via Clip-Path */}
-        <div 
+        <div
           style={{
             position: 'absolute',
             inset: 0,
@@ -197,9 +194,9 @@ export default function MissionVision() {
           }}
         >
           {/* Background Image */}
-          <img 
-            src="/images/our_mission_vision.png" 
-            alt="Corporate Leadership" 
+          <img
+            src="/images/our_mission_vision.png"
+            alt="Corporate Leadership"
             style={{
               position: 'absolute',
               top: 0,
@@ -213,7 +210,7 @@ export default function MissionVision() {
           />
 
           {/* Very Subtle Localized Gradient Scrim */}
-          <div 
+          <div
             style={{
               position: 'absolute',
               inset: 0,
@@ -224,7 +221,7 @@ export default function MissionVision() {
           />
 
           {/* Initial Centered Title */}
-          <div 
+          <div
             style={{
               position: 'absolute',
               inset: 0,
@@ -239,24 +236,10 @@ export default function MissionVision() {
               willChange: 'opacity, transform'
             }}
           >
-            <span style={{ 
-              fontSize: '1rem', 
-              fontWeight: 600, 
-              color: '#FFFFFF', 
-              textTransform: 'uppercase', 
-              letterSpacing: '0.2em', 
-              marginBottom: '16px',
-              backgroundColor: '#C41E3A',
-              padding: '6px 16px',
-              borderRadius: '30px',
-              boxShadow: '0 4px 12px rgba(196,30,58,0.3)'
-            }}>
-              Core Purpose
-            </span>
-            <h2 style={{ 
-              fontSize: 'clamp(3rem, 6vw, 4.5rem)', 
-              fontWeight: 900, 
-              color: '#FFFFFF', 
+            <h2 style={{
+              fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+              fontWeight: 900,
+              color: '#FFFFFF',
               textShadow: '0 8px 24px rgba(0,0,0,0.5)',
               margin: 0,
               textAlign: 'center',
@@ -267,7 +250,7 @@ export default function MissionVision() {
           </div>
 
           {/* Expanded Content Overlay */}
-          <div 
+          <div
             style={{
               position: 'absolute',
               inset: 0,
@@ -278,61 +261,59 @@ export default function MissionVision() {
               pointerEvents: contentOpacity > 0.5 ? 'auto' : 'none'
             }}
           >
-            <div style={{ 
-              maxWidth: '1280px', 
-              width: '100%', 
-              display: 'grid', 
-              gridTemplateColumns: '1fr 1fr', 
-              gap: '40px',
-              marginTop: '12vh' // Push down slightly to reveal more of the image
+            <div style={{
+              maxWidth: '1280px',
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '32px',
+              marginTop: 'clamp(20px, 4vh, 48px)'
             }}>
-              
+
               {/* Mission Premium Panel */}
               <div style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.94)',
-                backdropFilter: 'blur(12px)',
-                borderRadius: '24px',
-                padding: '48px',
+                backgroundColor: '#FFFFFF',
+                borderRadius: '20px',
+                padding: 'clamp(24px, 3.5vh, 40px)',
                 boxShadow: '0 24px 48px rgba(0,0,0,0.1)',
-                border: '1px solid rgba(255,255,255,0.6)',
+                border: '1px solid #E2E8F0',
                 opacity: contentOpacity,
                 transform: `translateY(${contentTranslateY}px)`,
                 willChange: 'opacity, transform'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(196,30,58,0.2)' }}>
-                    <Target size={28} color="#FFFFFF" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(196,30,58,0.2)', flexShrink: 0 }}>
+                    <Target size={24} color="#FFFFFF" />
                   </div>
-                  <h3 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                  <h3 style={{ fontSize: 'clamp(1.3rem, 2.8vh, 1.6rem)', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
                     OUR MISSION
                   </h3>
                 </div>
-                <p style={{ color: '#334155', lineHeight: 1.6, fontSize: '1.15rem', margin: 0, fontWeight: 400 }}>
+                <p style={{ color: '#334155', lineHeight: 1.55, fontSize: 'clamp(0.95rem, 2vh, 1.1rem)', margin: 0, fontWeight: 400 }}>
                   {mission.description}
                 </p>
               </div>
 
               {/* Vision Premium Panel */}
               <div style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.94)',
-                backdropFilter: 'blur(12px)',
-                borderRadius: '24px',
-                padding: '48px',
+                backgroundColor: '#FFFFFF',
+                borderRadius: '20px',
+                padding: 'clamp(24px, 3.5vh, 40px)',
                 boxShadow: '0 24px 48px rgba(0,0,0,0.1)',
-                border: '1px solid rgba(255,255,255,0.6)',
+                border: '1px solid #E2E8F0',
                 opacity: visionOpacity,
                 transform: `translateY(${visionTranslateY}px)`,
                 willChange: 'opacity, transform'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(196,30,58,0.2)' }}>
-                    <Eye size={28} color="#FFFFFF" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(196,30,58,0.2)', flexShrink: 0 }}>
+                    <Eye size={24} color="#FFFFFF" />
                   </div>
-                  <h3 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                  <h3 style={{ fontSize: 'clamp(1.3rem, 2.8vh, 1.6rem)', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
                     OUR VISION
                   </h3>
                 </div>
-                <p style={{ color: '#334155', lineHeight: 1.6, fontSize: '1.15rem', margin: 0, fontWeight: 400 }}>
+                <p style={{ color: '#334155', lineHeight: 1.55, fontSize: 'clamp(0.95rem, 2vh, 1.1rem)', margin: 0, fontWeight: 400 }}>
                   {vision.description}
                 </p>
               </div>

@@ -5,6 +5,8 @@ export const companyProfileData = {
   heroQuote: "We don't just fill positions, we fuel your company's success.",
   
   contact: {
+    phone: "9677555369",
+    displayPhone: "+91 96775 55369",
     location: "Chennai, Tamil Nadu - India",
     email: "info@veljeettechnologies.com",
     website: "www.veljeettechnologies.com",

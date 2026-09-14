@@ -31,7 +31,7 @@ export default function App() {
         <Services onOpenContactModal={handleOpenContactModal} />
         <Industries onOpenContactModal={handleOpenContactModal} />
         <WhyChooseUs onOpenContactModal={handleOpenContactModal} />
-        <HowWeWork />
+        {/* <HowWeWork /> */}
         <Testimonials />
       </main>
 

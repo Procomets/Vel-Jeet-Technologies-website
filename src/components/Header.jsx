@@ -5,6 +5,8 @@ import { companyProfileData } from '../data/companyData';
 export default function Header({ onOpenContactModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isInServicesSection, setIsInServicesSection] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -12,6 +14,21 @@ export default function Header({ onOpenContactModal }) {
       const currentScrollY = window.scrollY;
       
       setIsScrolled(currentScrollY > 30);
+
+      // Check if user is currently inside the Services section (#services)
+      const servicesEl = document.getElementById('services');
+      if (servicesEl) {
+        const rect = servicesEl.getBoundingClientRect();
+        // If Services section has reached the top area and is currently being viewed
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          setIsInServicesSection(true);
+          setIsVisible(false);
+          lastScrollY.current = currentScrollY;
+          return;
+        } else {
+          setIsInServicesSection(false);
+        }
+      }
 
       // Always keep visible when near the top of the page
       if (currentScrollY <= 60) {
@@ -36,51 +53,48 @@ export default function Header({ onOpenContactModal }) {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <header 
       style={{
         position: 'sticky',
         top: 0,
-        zIndex: 1000
+        zIndex: 1000,
+        transform: isInServicesSection ? 'translateY(-100%)' : 'translateY(0)',
+        transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+        pointerEvents: isInServicesSection ? 'none' : 'auto'
       }}
     >
-      {/* Top Utility Contact Bar - Always Visible */}
+      {/* Top Utility Contact Bar */}
       <div 
         style={{
           backgroundColor: '#000000',
           color: '#94A3B8',
           fontSize: '0.8rem',
-          padding: '4px 0',
+          padding: '6px 0',
           borderBottom: '1px solid rgba(255,255,255,0.05)',
           position: 'relative',
           zIndex: 1002
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22C55E' }}></span>
-              <strong>Location:</strong> {companyProfileData.contact.location}
-            </span>
-            <a href={`mailto:${companyProfileData.contact.email}`} style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#CBD5E1' }}>
-              <Mail size={13} color="#C41E3A" />
-              {companyProfileData.contact.email}
-            </a>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span style={{ color: '#F1F5F9', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Globe size={13} color="#C41E3A" />
-              {companyProfileData.contact.website}
-            </span>
-          </div>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+          <a href="tel:9677555369" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#F1F5F9', textDecoration: 'none', fontWeight: 600 }}>
+            <Phone size={13} color="#C41E3A" />
+            +91 96775 55369
+          </a>
+          <a href={`mailto:${companyProfileData.contact.email}`} style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#CBD5E1', textDecoration: 'none' }}>
+            <Mail size={13} color="#C41E3A" />
+            {companyProfileData.contact.email}
+          </a>
         </div>
       </div>
 
-      {/* Main Navbar - Auto-hides on scroll down & reappears on scroll up */}
+      {/* Main Navbar */}
       <div
         style={{
           backgroundColor: '#FFFFFF',
@@ -100,29 +114,29 @@ export default function Header({ onOpenContactModal }) {
               src="/images/logo.png" 
               alt="Vel Jeet Technologies Logo" 
               style={{ 
-                height: '44px', 
+                height: '40px', 
                 width: 'auto', 
                 objectFit: 'contain',
                 display: 'block' 
               }} 
             />
-            <span style={{ fontSize: '1.15rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
               Vel Jeet Technologies
             </span>
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-            <a href="#overview" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Overview</a>
-            <a href="#mission" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Mission</a>
-            <a href="#services" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Services</a>
-            <a href="#industries" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Industries</a>
-            <a href="#why-choose-us" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Why Us</a>
-            <a href="#testimonials" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Testimonials</a>
-            <a href="#contact" style={{ fontWeight: 500, fontSize: '0.88rem', color: '#334155' }}>Contact</a>
+          <nav className="desktop-nav-links">
+            <a href="#overview">Overview</a>
+            <a href="#mission">Mission</a>
+            <a href="#services">Services</a>
+            <a href="#industries">Industries</a>
+            <a href="#why-choose-us">Why Us</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
           </nav>
 
-          {/* Primary Contact CTA */}
+          {/* Right Header Actions */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <button 
               className="btn-primary-red"
@@ -132,10 +146,93 @@ export default function Header({ onOpenContactModal }) {
               Hire Talent
               <ChevronRight size={14} />
             </button>
+
+            {/* Mobile Hamburger Toggle Button */}
+            <button
+              className="mobile-menu-toggle-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              {isMobileMenuOpen ? <X size={22} color="#0F172A" /> : <Menu size={22} color="#0F172A" />}
+            </button>
           </div>
 
         </div>
+
+        {/* Mobile Dropdown Menu Drawer */}
+        {isMobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <a href="#overview" onClick={closeMobileMenu}>Overview</a>
+            <a href="#mission" onClick={closeMobileMenu}>Mission</a>
+            <a href="#services" onClick={closeMobileMenu}>Services</a>
+            <a href="#industries" onClick={closeMobileMenu}>Industries</a>
+            <a href="#why-choose-us" onClick={closeMobileMenu}>Why Us</a>
+            <a href="#testimonials" onClick={closeMobileMenu}>Testimonials</a>
+            <a href="#contact" onClick={closeMobileMenu}>Contact</a>
+          </div>
+        )}
+
       </div>
+
+      {/* Embedded CSS for responsive Header */}
+      <style>
+        {`
+          .desktop-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+          }
+
+          .desktop-nav-links a {
+            font-weight: 500;
+            font-size: 0.88rem;
+            color: #334155;
+            text-decoration: none;
+            transition: color 0.2s ease;
+          }
+
+          .desktop-nav-links a:hover {
+            color: #C41E3A;
+          }
+
+          .mobile-menu-toggle-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+          }
+
+          .mobile-nav-drawer {
+            display: flex;
+            flex-direction: column;
+            backgroundColor: #FFFFFF;
+            border-top: 1px solid #E2E8F0;
+            padding: 16px 24px;
+            gap: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+          }
+
+          .mobile-nav-drawer a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0F172A;
+            text-decoration: none;
+            padding: 6px 0;
+            border-bottom: 1px solid #F1F5F9;
+          }
+
+          @media (max-width: 992px) {
+            .desktop-nav-links {
+              display: none !important;
+            }
+            .mobile-menu-toggle-btn {
+              display: inline-flex !important;
+            }
+          }
+        `}
+      </style>
     </header>
   );
 }

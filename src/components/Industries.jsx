@@ -1,15 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Layers } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 import { companyProfileData } from '../data/companyData';
 
 export default function Industries() {
   const { industries } = companyProfileData;
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(sectionRef.current);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
+    };
   }, []);
 
   const cardGap = isMobile ? 40 : 100;
@@ -17,13 +34,17 @@ export default function Industries() {
   return (
     <section 
       id="industries"
+      ref={sectionRef}
       className="horizontal-marquee-container"
       style={{
         backgroundColor: '#FFFFFF',
         position: 'relative',
-        padding: '60px 0',
-        marginTop: isMobile ? '60px' : '120px',
-        overflow: 'hidden'
+        padding: '40px 0',
+        marginTop: '0px',
+        overflow: 'hidden',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)'
       }}
     >
       {/* Header - Minimal centered style */}
@@ -67,11 +88,9 @@ export default function Industries() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '12px',
                       flexShrink: 0
                     }}
                   >
-                    <Layers size={22} color="#CBD5E1" strokeWidth={1.5} />
                     <span style={{ 
                       fontSize: isMobile ? '16px' : '18px', 
                       fontWeight: 600, 

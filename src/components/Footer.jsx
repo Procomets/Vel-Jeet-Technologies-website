@@ -2,6 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Globe } from 'lucide-react';
 import { companyProfileData } from '../data/companyData';
 
+const LinkedInIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+    <rect x="2" y="9" width="4" height="12"></rect>
+    <circle cx="4" cy="4" r="2"></circle>
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+);
+
 export default function Footer({ onOpenContactModal }) {
   const { contact } = companyProfileData;
   const footerRef = useRef(null);
@@ -35,8 +51,6 @@ export default function Footer({ onOpenContactModal }) {
         position: 'relative',
         overflow: 'hidden',
         width: '100%',
-        borderTop: '4px solid #C41E3A', // Thin Vel-Jeet crimson line at top
-        minHeight: '600px', // Ensure large empty breathing space
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between'
@@ -69,7 +83,7 @@ export default function Footer({ onOpenContactModal }) {
           maxWidth: '1280px', 
           width: '100%',
           margin: '0 auto', 
-          padding: '80px 24px 40px', 
+          padding: '60px 24px 20px', 
           position: 'relative', 
           zIndex: 2,
           flex: 1,
@@ -83,32 +97,36 @@ export default function Footer({ onOpenContactModal }) {
           
           {/* Column 1: Brand Info */}
           <div className="footer-col-brand col-animate" style={{ '--delay': '0ms' }}>
-            <div style={{ marginBottom: '28px' }}>
+            <div className="footer-logo-wrapper" style={{ marginBottom: '16px' }}>
               <img 
                 src="/images/logo.png" 
                 alt="Vel Jeet Technologies Logo" 
                 style={{ 
-                  height: '72px', 
+                  height: '64px', 
                   width: 'auto', 
                   objectFit: 'contain',
                   borderRadius: '8px',
                   backgroundColor: '#FFFFFF',
-                  padding: '8px 16px',
+                  padding: '6px 14px',
                   display: 'inline-block' 
                 }} 
               />
             </div>
-            <p style={{ fontSize: '1.05rem', color: '#94A3B8', lineHeight: 1.6, marginBottom: '12px', maxWidth: '320px' }}>
+            <p className="footer-brand-desc" style={{ fontSize: '0.98rem', color: '#94A3B8', lineHeight: 1.5, marginBottom: '8px', maxWidth: '320px' }}>
               We don't just fill positions, we fuel your company's success.
             </p>
-            <div style={{ fontSize: '0.95rem', color: '#64748B', fontWeight: 600, marginBottom: '36px' }}>
+            <div style={{ fontSize: '0.88rem', color: '#64748B', fontWeight: 600, marginBottom: '20px' }}>
               100% Statutory Compliant HR Partner
             </div>
             
-            {/* Social Icons */}
-            <div style={{ display: 'flex', gap: '16px' }}>
-              <a href="#" aria-label="LinkedIn" className="footer-social-link"><span>in</span></a>
-              <a href="#" aria-label="Instagram" className="footer-social-link"><span>ig</span></a>
+            {/* Social Icons - Instagram & LinkedIn */}
+            <div className="footer-social-wrapper" style={{ display: 'flex', gap: '12px' }}>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="footer-social-link">
+                <LinkedInIcon />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-link">
+                <InstagramIcon />
+              </a>
             </div>
           </div>
 
@@ -142,12 +160,18 @@ export default function Footer({ onOpenContactModal }) {
             <h4 className="footer-heading">Contact Information</h4>
             <div className="footer-contact">
               <div className="contact-item">
-                <strong className="contact-label">Location</strong>
-                <span className="contact-value">Chennai, Tamil Nadu – India</span>
+                <strong className="contact-label">Phone</strong>
+                <a href="tel:9677555369" className="contact-value" style={{ color: '#FFFFFF', fontWeight: 700, textDecoration: 'none' }}>
+                  +91 96775 55369
+                </a>
               </div>
               <div className="contact-item">
                 <strong className="contact-label">Email</strong>
                 <a href={`mailto:${contact.email}`} className="contact-value contact-email">{contact.email}</a>
+              </div>
+              <div className="contact-item">
+                <strong className="contact-label">Location</strong>
+                <span className="contact-value">Chennai, Tamil Nadu – India</span>
               </div>
               <div className="contact-item">
                 <strong className="contact-label">Website</strong>
@@ -156,7 +180,7 @@ export default function Footer({ onOpenContactModal }) {
               <button 
                 className="btn-primary-red footer-btn"
                 onClick={onOpenContactModal}
-                style={{ marginTop: '16px', padding: '12px 24px', fontSize: '0.95rem' }}
+                style={{ marginTop: '10px', padding: '10px 20px', fontSize: '0.9rem' }}
               >
                 Send Direct Message
               </button>
@@ -165,11 +189,8 @@ export default function Footer({ onOpenContactModal }) {
 
         </div>
 
-        {/* Generous breathing space below columns */}
-        <div style={{ flex: 1, minHeight: '60px' }}></div>
-
         {/* Divider & Copyright */}
-        <div className={`col-animate`} style={{ '--delay': '400ms', width: '100%' }}>
+        <div className={`col-animate`} style={{ '--delay': '400ms', width: '100%', marginTop: '24px' }}>
           <div className="footer-divider" />
           <div className="footer-bottom">
             <p>© {new Date().getFullYear()} Vel Jeet Technologies. All Rights Reserved. Chennai, Tamil Nadu, India.</p>
@@ -188,7 +209,7 @@ export default function Footer({ onOpenContactModal }) {
           .footer-grid {
             display: grid;
             grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-            gap: 40px;
+            gap: 32px;
           }
           
           /* Staggered Animations */
@@ -205,10 +226,10 @@ export default function Footer({ onOpenContactModal }) {
           }
           
           .footer-heading {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.05rem;
+            font-weight: 700;
             color: #FFFFFF;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
             letter-spacing: 0.02em;
           }
           
@@ -218,13 +239,13 @@ export default function Footer({ onOpenContactModal }) {
             margin: 0;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 8px;
           }
           
           .footer-links a {
             color: #94A3B8; /* Muted blue-gray */
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             transition: all 0.3s ease;
             display: inline-block;
           }
@@ -237,26 +258,26 @@ export default function Footer({ onOpenContactModal }) {
           .footer-contact {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
           }
           
           .contact-item {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 2px;
           }
           
           .contact-label {
             color: #E2E8F0;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            font-weight: 600;
+            font-weight: 700;
           }
           
           .contact-value {
             color: #94A3B8;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             text-decoration: none;
             transition: color 0.3s ease;
           }
@@ -302,7 +323,7 @@ export default function Footer({ onOpenContactModal }) {
             height: 1px;
             width: 100%;
             background-color: #1E293B;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
           }
           
           .footer-bottom {
@@ -311,7 +332,7 @@ export default function Footer({ onOpenContactModal }) {
             align-items: center;
             font-size: 0.9rem;
             color: #64748B;
-            margin-bottom: 60px; /* Space above oversized text */
+            margin-bottom: 24px;
           }
           
           .footer-bottom p {
@@ -320,15 +341,15 @@ export default function Footer({ onOpenContactModal }) {
           
           /* HUGE Oversized Wordmark */
           .footer-wordmark {
-            font-size: clamp(90px, 18vw, 260px);
+            font-size: clamp(80px, 16vw, 240px);
             font-weight: 900;
             line-height: 0.8;
             letter-spacing: -0.06em;
             white-space: nowrap;
-            color: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.06);
             position: absolute;
             left: 50%;
-            bottom: -20px;
+            bottom: -15px;
             transform: translateX(-50%);
             pointer-events: none;
             z-index: 1;
@@ -344,24 +365,72 @@ export default function Footer({ onOpenContactModal }) {
               grid-column: 1 / -1; 
             }
             .footer-wordmark {
-              font-size: clamp(120px, 20vw, 180px);
+              font-size: clamp(100px, 18vw, 160px);
             }
           }
           
-          @media (max-width: 640px) {
+          @media (max-width: 768px) {
+            .footer-content-wrapper {
+              padding: 36px 16px 12px;
+            }
             .footer-grid {
               grid-template-columns: 1fr;
-              gap: 40px;
+              gap: 28px;
+              text-align: center;
             }
             .footer-col-brand {
-              grid-column: 1 / 2;
+              grid-column: 1 / -1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+            }
+            .footer-brand-desc {
+              margin-left: auto !important;
+              margin-right: auto !important;
+            }
+            .footer-social-wrapper {
+              justify-content: center;
+            }
+            .footer-col {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+            }
+            .footer-heading {
+              text-align: center;
+              margin-bottom: 12px;
+            }
+            .footer-links {
+              align-items: center;
+            }
+            .footer-links a:hover {
+              transform: translateY(-2px);
+            }
+            .footer-contact {
+              align-items: center;
+              text-align: center;
+            }
+            .contact-item {
+              align-items: center;
+              text-align: center;
+            }
+            .footer-btn {
+              align-self: center !important;
             }
             .footer-bottom {
-              flex-direction: column;
-              text-align: left;
+              justify-content: center;
+              text-align: center;
+              margin-bottom: 12px;
+            }
+            .footer-bottom p {
+              text-align: center;
+              font-size: 0.82rem;
             }
             .footer-wordmark {
-              font-size: clamp(70px, 15vw, 110px);
+              font-size: clamp(50px, 13vw, 85px);
+              bottom: -10px;
             }
           }
         `}

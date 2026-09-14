@@ -195,7 +195,7 @@ export default function HowWeWork() {
       id="how-we-work"
       ref={sectionRef}
       style={{
-        height: isMobile ? 'auto' : '200vh', // 200vh provides a balanced, quicker scroll distance
+        height: isMobile ? 'auto' : '130vh', // 130vh provides a crisp, compact scroll distance
         backgroundColor: '#F8FAFC',
         position: 'relative'
       }}
@@ -227,14 +227,11 @@ export default function HowWeWork() {
             style={{ 
               textAlign: 'center', 
               maxWidth: '750px', 
-              margin: '0 auto 120px',
+              margin: '0 auto min(3vh, 24px)',
               willChange: 'opacity, transform'
             }}
           >
-            <span style={{ display: 'inline-block', fontSize: '0.85rem', fontWeight: 600, color: '#C41E3A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px', padding: '6px 12px', backgroundColor: '#FEF2F2', borderRadius: '20px' }}>
-              How We Work
-            </span>
-            <h2 style={{ fontSize: '2.8rem', fontWeight: 900, color: '#0F172A', lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vh, 2.5rem)', fontWeight: 900, color: '#0F172A', lineHeight: 1.2 }}>
               From Requirement to <span style={{ color: '#C41E3A' }}>Right Hire</span>
             </h2>
           </div>

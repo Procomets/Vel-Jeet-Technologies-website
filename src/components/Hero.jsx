@@ -4,35 +4,35 @@ import { ArrowRight } from 'lucide-react';
 export default function Hero({ onOpenContactModal }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const isTransitioningRef = useRef(false);
   const timerRef = useRef(null);
   const touchStartXRef = useRef(null);
   const touchStartYRef = useRef(null);
 
-  const prefersReducedMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
 
   const slides = [
     {
       image: '/images/hero.jpg',
       headline: (
-        <>Connecting Businesses <br/>With the <span style={{ color: '#C41E3A' }}>Right Talent</span></>
+        <>Connecting Businesses <br />With the <span style={{ color: isMobile ? '#FF4D6D' : '#C41E3A' }}>Right Talent</span></>
       ),
       subtext: "Your trusted recruitment partner delivering top-tier talent and end-to-end workforce solutions tailored for growing enterprises."
     },
     {
       image: '/images/executive_search.jpg',
       headline: (
-        <>Building Teams That <br/><span style={{ color: '#C41E3A' }}>Drive Business Forward</span></>
+        <>Building Teams That <br /><span style={{ color: isMobile ? '#FF4D6D' : '#C41E3A' }}>Drive Business Forward</span></>
       ),
       subtext: "Empowering your organization with leadership and skilled professionals who align with your vision and strategic goals."
     },
     {
       image: '/images/hr_outsourcing.jpg',
       headline: (
-        <>Your Workforce. <br/><span style={{ color: '#C41E3A' }}>Our Expertise.</span></>
+        <>Your Workforce. <br /><span style={{ color: isMobile ? '#FF4D6D' : '#C41E3A' }}>Our Expertise.</span></>
       ),
       subtext: "From volume hiring to niche roles, we simplify recruitment and compliance so you can focus on what matters most—growth."
     }
@@ -89,7 +89,7 @@ export default function Hero({ onOpenContactModal }) {
   const navigateCarousel = (action) => {
     if (isTransitioningRef.current) return;
     isTransitioningRef.current = true;
-    
+
     setCurrentIndex(prev => {
       let nextIndex = prev;
       if (action === 'next') nextIndex = (prev + 1) % slides.length;
@@ -112,10 +112,10 @@ export default function Hero({ onOpenContactModal }) {
 
   const handleTouchEnd = (e) => {
     if (touchStartXRef.current === null || touchStartYRef.current === null) return;
-    
+
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
-    
+
     const diffX = touchStartXRef.current - touchEndX;
     const diffY = touchStartYRef.current - touchEndY;
 
@@ -124,16 +124,16 @@ export default function Hero({ onOpenContactModal }) {
       if (diffX > 0) navigateCarousel('next');
       else navigateCarousel('prev');
     }
-    
+
     touchStartXRef.current = null;
     touchStartYRef.current = null;
   };
 
   return (
     <section id="hero" style={{ position: 'relative', width: '100%', backgroundColor: '#FFFFFF' }}>
-      
+
       {/* Animated Hero Carousel Wrapper */}
-      <div 
+      <div
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr',
@@ -147,9 +147,9 @@ export default function Hero({ onOpenContactModal }) {
       >
         {slides.map((slide, index) => {
           const isActive = index === currentIndex;
-          
+
           return (
-            <div 
+            <div
               key={index}
               style={{
                 gridArea: '1 / 1',
@@ -163,12 +163,14 @@ export default function Hero({ onOpenContactModal }) {
               }}
             >
               {/* Background Image Layer */}
-              <div 
+              <div
                 style={{
                   position: 'absolute',
                   top: 0, left: 0, right: 0, bottom: 0,
-                  backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255, 0.95) 10%, rgba(255, 255, 255, 0.91) 4%, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.10) 50%), url('${slide.image}')`,
-                  backgroundPosition: 'top right',
+                  backgroundImage: isMobile
+                    ? `linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.85) 100%), url('${slide.image}')`
+                    : `linear-gradient(90deg, rgba(255, 255, 255, 0.95) 10%, rgba(255, 255, 255, 0.91) 4%, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0.10) 50%), url('${slide.image}')`,
+                  backgroundPosition: isMobile ? 'center' : 'top right',
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat',
                   transform: prefersReducedMotion ? 'none' : (isActive ? 'scale(1)' : 'scale(1.03)'),
@@ -176,25 +178,25 @@ export default function Hero({ onOpenContactModal }) {
                   zIndex: -1,
                 }}
               />
-              
+
               {/* Text Content */}
-              <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', padding: '0 24px', position: 'relative' }}>
-                <div style={{ maxWidth: '650px', paddingTop: '-60px' }}>
-                  
+              <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', padding: '0 24px', position: 'relative' , marginBottom:'30px'}}>
+                <div style={{ maxWidth: '650px', transform: 'translateY(-50px)', marginTop:'-40px' }}>
+
                   {/* Headline */}
-                  <h1 
+                  <h1
                     style={{
                       fontSize: 'clamp(2.4rem, 4.2vw, 3.6rem)',
                       fontWeight: 900,
-                      color: '#0F172A',
+                      color: isMobile ? '#FFFFFF' : '#0F172A',
                       lineHeight: 1.1,
                       letterSpacing: '-0.02em',
                       marginBottom: '22px',
                       opacity: isActive ? 1 : 0,
-                      transform: prefersReducedMotion 
-                        ? 'none' 
+                      transform: prefersReducedMotion
+                        ? 'none'
                         : (isActive ? 'translateY(0)' : 'translateY(24px)'),
-                      transition: isActive 
+                      transition: isActive
                         ? 'opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) 100ms, transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 100ms'
                         : 'opacity 300ms ease-out, transform 300ms ease-out'
                     }}
@@ -203,20 +205,21 @@ export default function Hero({ onOpenContactModal }) {
                   </h1>
 
                   {/* Subtext */}
-                  <p 
+                  <p
                     style={{
-                      color: '#475569',
+                      color: isMobile ? '#FFFFFF' : '#475569',
                       fontSize: '1.125rem',
                       lineHeight: 1.6,
                       maxWidth: '560px',
                       margin: '0 auto',
                       fontWeight: 400,
                       marginBottom: '36px',
+                      marginLeft:'1px',
                       opacity: isActive ? 1 : 0,
-                      transform: prefersReducedMotion 
-                        ? 'none' 
+                      transform: prefersReducedMotion
+                        ? 'none'
                         : (isActive ? 'translateY(0)' : 'translateY(24px)'),
-                      transition: isActive 
+                      transition: isActive
                         ? 'opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) 200ms, transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 200ms'
                         : 'opacity 300ms ease-out, transform 300ms ease-out'
                     }}
@@ -225,19 +228,19 @@ export default function Hero({ onOpenContactModal }) {
                   </p>
 
                   {/* CTA Buttons */}
-                  <div 
-                    style={{ 
+                  <div
+                    style={{
                       display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center',
                       opacity: isActive ? 1 : 0,
-                      transform: prefersReducedMotion 
-                        ? 'none' 
+                      transform: prefersReducedMotion
+                        ? 'none'
                         : (isActive ? 'translateY(0)' : 'translateY(24px)'),
-                      transition: isActive 
+                      transition: isActive
                         ? 'opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) 300ms, transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 300ms'
                         : 'opacity 300ms ease-out, transform 300ms ease-out'
                     }}
                   >
-                    <button 
+                    <button
                       className="btn-primary-red"
                       onClick={onOpenContactModal}
                       style={{
@@ -251,14 +254,17 @@ export default function Hero({ onOpenContactModal }) {
                       <ArrowRight size={20} />
                     </button>
 
-                    <a 
+                    <a
                       href="#services"
                       className="btn-secondary-dark"
                       style={{
-                        display: 'flex', alignItems: 'center', gap: '8px', 
+                        display: 'flex', alignItems: 'center', gap: '8px',
                         fontSize: '1rem',
                         fontWeight: 600,
-                        borderRadius: '8px'
+                        borderRadius: '8px',
+                        backgroundColor: isMobile ? 'rgba(255, 255, 255, 0.15)' : '#0F172A',
+                        color: '#FFFFFF',
+                        border: isMobile ? '1px solid rgba(255, 255, 255, 0.35)' : 'none'
                       }}
                     >
                       Explore Services
@@ -271,24 +277,24 @@ export default function Hero({ onOpenContactModal }) {
         })}
 
         {/* Navigation Dots */}
-        <div 
+        <div
           style={{
             position: 'absolute',
-            bottom: '125px', 
+            bottom: '125px',
             left: 0,
             right: 0,
             zIndex: 5,
             pointerEvents: 'none'
           }}
         >
-          <div 
-            style={{ 
-              maxWidth: '1280px', 
-              margin: '0 auto', 
-              padding: '0 24px', 
-              display: 'flex', 
-              gap: '10px', 
-              pointerEvents: 'auto' 
+          <div
+            style={{
+              maxWidth: '1280px',
+              margin: '0 auto',
+              padding: '0 24px',
+              display: 'flex',
+              gap: '10px',
+              pointerEvents: 'auto'
             }}
           >
             {slides.map((_, i) => (
@@ -313,61 +319,19 @@ export default function Hero({ onOpenContactModal }) {
 
       </div>
 
-      {/* Floating Center Bottom White KPI Card */}
-      <div 
-        style={{
-          maxWidth: '1180px',
-          width: 'calc(100% - 48px)',
-          margin: '-20px auto 60px',
-          position: 'relative',
-          zIndex: 10
-        }}
-      >
-        <div 
-          className="kpi-white-card"
-          style={{
-            backgroundColor: '#FFFFFF',
-            borderRadius: '16px',
-            padding: '32px 36px',
-            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.12), 0 4px 15px rgba(0, 0, 0, 0.05)',
-            border: '1px solid #E2E8F0'
-          }}
-        >
-          <div 
-            className="kpi-grid"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              textAlign: 'center',
-              gap: '16px',
-              alignItems: 'center'
-            }}
-          >
+      {/* KPI Section: Floating Card on Desktop, Independent Full-Width Section on Mobile */}
+      <div className="hero-kpi-container">
+        <div className="kpi-card-inner">
+          <div className="kpi-grid-container">
             {kpis.map((kpi, index) => (
-              <div 
-                key={index}
-                className="kpi-item"
-                style={{
-                  borderRight: index !== kpis.length - 1 ? '1px solid #E2E8F0' : 'none',
-                  paddingRight: index !== kpis.length - 1 ? '16px' : '0'
-                }}
-              >
-                <div 
-                  style={{
-                    color: kpi.color,
-                    fontSize: '2.4rem',
-                    fontWeight: 900,
-                    lineHeight: 1,
-                    letterSpacing: '-0.02em',
-                    marginBottom: '6px'
-                  }}
-                >
+              <div key={index} className="kpi-item-card">
+                <div className="kpi-val-text" style={{ color: kpi.color }}>
                   {kpi.value}
                 </div>
-                <div style={{ fontSize: '0.94rem', fontWeight: 600, color: '#0F172A', lineHeight: 1.2 }}>
+                <div className="kpi-lbl-text">
                   {kpi.label}
                 </div>
-                <div style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '3px' }}>
+                <div className="kpi-sub-text">
                   {kpi.subtext}
                 </div>
               </div>
@@ -375,6 +339,113 @@ export default function Hero({ onOpenContactModal }) {
           </div>
         </div>
       </div>
+
+      <style>
+        {`
+          .hero-kpi-container {
+            max-width: 1180px;
+            width: calc(100% - 48px);
+            margin: -20px auto 60px;
+            position: relative;
+            z-index: 10;
+          }
+
+          .kpi-card-inner {
+            background-color: #FFFFFF;
+            border-radius: 16px;
+            padding: 32px 36px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12), 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+          }
+
+          .kpi-grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+            gap: 16px;
+            align-items: center;
+          }
+
+          .kpi-item-card {
+            border-right: 1px solid #E2E8F0;
+            padding-right: 16px;
+          }
+
+          .kpi-item-card:last-child {
+            border-right: none;
+            padding-right: 0;
+          }
+
+          .kpi-val-text {
+            font-size: 2.4rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 2px;
+          }
+
+          .kpi-lbl-text {
+            font-size: 0.94rem;
+            font-weight: 700;
+            color: #0F172A;
+            line-height: 1.15;
+          }
+
+          .kpi-sub-text {
+            font-size: 0.78rem;
+            color: #64748B;
+            margin-top: 1px;
+            line-height: 1.2;
+          }
+
+          @media (max-width: 768px) {
+            .hero-kpi-container {
+              width: 100%;
+              max-width: 100%;
+              margin: 0;
+              padding: 24px 16px;
+              background-color: #FFFFFF;
+              border-top: 1px solid #E2E8F0;
+              border-bottom: 1px solid #E2E8F0;
+              box-sizing: border-box;
+            }
+
+            .kpi-card-inner {
+              background-color: transparent !important;
+              border-radius: 0 !important;
+              padding: 0 !important;
+              box-shadow: none !important;
+              border: none !important;
+            }
+
+            .kpi-grid-container {
+              grid-template-columns: repeat(2, 1fr) !important;
+              gap: 16px 12px !important;
+            }
+
+            .kpi-item-card {
+              border-right: none !important;
+              padding-right: 0 !important;
+            }
+
+            .kpi-val-text {
+              font-size: 2rem;
+              margin-bottom: 2px;
+            }
+
+            .kpi-lbl-text {
+              font-size: 0.88rem;
+              line-height: 1.15;
+            }
+
+            .kpi-sub-text {
+              font-size: 0.74rem;
+              margin-top: 1px;
+              line-height: 1.2;
+            }
+          }
+        `}
+      </style>
     </section>
   );
 }

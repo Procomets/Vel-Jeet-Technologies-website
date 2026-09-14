@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Target, Compass, Award, CheckCircle, ArrowRight } from 'lucide-react';
 import { companyProfileData } from '../data/companyData';
 
 export default function Overview({ onOpenContactModal }) {
   const { overview } = companyProfileData;
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section 
       id="overview" 
+      ref={sectionRef}
       style={{
-        padding: '90px 0',
+        padding: '60px 0',
         backgroundColor: '#FFFFFF',
         position: 'relative'
       }}
@@ -20,7 +38,14 @@ export default function Overview({ onOpenContactModal }) {
         <div className="overview-grid">
           
           {/* Left Column: Image with Red Layered Box Offset */}
-          <div style={{ position: 'relative' }}>
+          <div 
+            style={{ 
+              position: 'relative',
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(24px)',
+              transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
             
             {/* Red Solid Accent Layer behind Image */}
             <div 
@@ -54,47 +79,17 @@ export default function Overview({ onOpenContactModal }) {
               />
             </div>
 
-            {/* Overlaid Badge */}
-            <div 
-              style={{
-                position: 'absolute',
-                bottom: '-25px',
-                left: '30px',
-                zIndex: 3,
-                backgroundColor: '#0F172A',
-                color: '#FFFFFF',
-                padding: '16px 24px',
-                borderRadius: '10px',
-                boxShadow: '0 12px 30px rgba(0,0,0,0.2)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px'
-              }}
-            >
-              <div 
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: '#C41E3A',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 900
-                }}
-              >
-                ✓
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>Client-Focused Partner</div>
-                <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>Based in Chennai, India</div>
-              </div>
-            </div>
-
           </div>
 
           {/* Right Column: Paragraph Content & Highlights */}
-          <div className="overview-text-col">
+          <div 
+            className="overview-text-col"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(24px)',
+              transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s'
+            }}
+          >
             <h2 className="overview-h2">
               What is <span style={{ color: '#C41E3A' }}>Vel Jeet Technologies?</span>
             </h2>
