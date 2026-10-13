@@ -40,7 +40,7 @@ export default function ThankYouBanner({ onOpenContactModal }) {
       />
 
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 2, textAlign: 'center' }}>
-        <h2 style={{ fontSize: '3.5rem', fontWeight: 900, color: '#FFFFFF', marginBottom: '20px', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+        <h2 style={{ fontSize: '3.5rem', fontWeight: 900, color: '#FFFFFF', marginBottom: '20px', lineHeight: 1.2, letterSpacing: '0.015em' }}>
           Ready to Build Your Next <span style={{ color: '#C41E3A' }}>Great Team?</span>
         </h2>
 

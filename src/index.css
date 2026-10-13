@@ -1,42 +1,4 @@
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SF-Pro-Display-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SF-Pro-Display-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SF-Pro-Display-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SF-Pro-Display-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SF-Pro-Display-Black.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   --primary-red: #C41E3A;
@@ -64,18 +26,22 @@
   --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
   --shadow-red: 0 12px 30px rgba(196, 30, 58, 0.25);
 
-  --font-heading: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: inherit;
+  letter-spacing: inherit;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-body);
+  letter-spacing: 0.025em;
 }
 
 body {
@@ -86,17 +52,26 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.025em;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 900;
+  font-weight: 800;
   color: var(--text-main);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.015em;
+}
+
+p, span, li, a, label {
+  letter-spacing: 0.02em;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-body);
+  letter-spacing: 0.03em;
 }
 
 button {
-  font-family: var(--font-body);
   font-weight: 600;
   cursor: pointer;
   border: none;
@@ -339,4 +314,13 @@ html, body {
 
 .horizontal-marquee-container:hover .horizontal-marquee-track {
   animation-play-state: paused;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

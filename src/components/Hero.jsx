@@ -190,7 +190,7 @@ export default function Hero({ onOpenContactModal }) {
                       fontWeight: 900,
                       color: isMobile ? '#FFFFFF' : '#0F172A',
                       lineHeight: 1.1,
-                      letterSpacing: '-0.02em',
+                      letterSpacing: '0.015em',
                       marginBottom: '22px',
                       opacity: isActive ? 1 : 0,
                       transform: prefersReducedMotion
@@ -380,7 +380,7 @@ export default function Hero({ onOpenContactModal }) {
             font-size: 2.4rem;
             font-weight: 900;
             line-height: 1;
-            letter-spacing: -0.02em;
+            letter-spacing: 0.015em;
             margin-bottom: 2px;
           }
 

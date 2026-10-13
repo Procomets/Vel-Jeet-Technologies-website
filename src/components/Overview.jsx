@@ -162,6 +162,7 @@ export default function Overview({ onOpenContactModal }) {
             color: #0F172A;
             margin-bottom: 16px;
             line-height: 1.2;
+            letter-spacing: 0.015em;
           }
 
           .overview-h3 {
@@ -170,12 +171,14 @@ export default function Overview({ onOpenContactModal }) {
             color: #000000;
             margin-bottom: 20px;
             line-height: 1.35;
+            letter-spacing: 0.015em;
           }
 
           .overview-p {
             font-size: 1.1rem;
             color: #475569;
             line-height: 1.6;
+            letter-spacing: 0.025em;
           }
 
           .overview-check {

@@ -127,7 +127,7 @@ export default function MissionVision() {
                 <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Target size={24} color="#FFFFFF" />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '0.04em' }}>
                   OUR MISSION
                 </h3>
               </div>
@@ -142,7 +142,7 @@ export default function MissionVision() {
                 <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Eye size={24} color="#FFFFFF" />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '0.04em' }}>
                   OUR VISION
                 </h3>
               </div>
@@ -285,7 +285,7 @@ export default function MissionVision() {
                   <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(196,30,58,0.2)', flexShrink: 0 }}>
                     <Target size={24} color="#FFFFFF" />
                   </div>
-                  <h3 style={{ fontSize: 'clamp(1.3rem, 2.8vh, 1.6rem)', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                  <h3 style={{ fontSize: 'clamp(1.3rem, 2.8vh, 1.6rem)', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '0.04em' }}>
                     OUR MISSION
                   </h3>
                 </div>
@@ -309,7 +309,7 @@ export default function MissionVision() {
                   <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#C41E3A', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(196,30,58,0.2)', flexShrink: 0 }}>
                     <Eye size={24} color="#FFFFFF" />
                   </div>
-                  <h3 style={{ fontSize: 'clamp(1.3rem, 2.8vh, 1.6rem)', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                  <h3 style={{ fontSize: 'clamp(1.3rem, 2.8vh, 1.6rem)', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '0.04em' }}>
                     OUR VISION
                   </h3>
                 </div>

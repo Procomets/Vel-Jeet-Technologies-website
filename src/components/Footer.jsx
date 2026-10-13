@@ -344,7 +344,7 @@ export default function Footer({ onOpenContactModal }) {
             font-size: clamp(80px, 16vw, 240px);
             font-weight: 900;
             line-height: 0.8;
-            letter-spacing: -0.06em;
+            letter-spacing: 0.02em;
             white-space: nowrap;
             color: rgba(255,255,255,0.06);
             position: absolute;

@@ -166,7 +166,7 @@ export default function Services({ onOpenContactModal }) {
               fontWeight: 800,
               color: '#0F172A',
               lineHeight: 1.2,
-              letterSpacing: '-0.02em',
+              letterSpacing: '0.015em',
               margin: '0 0 10px 0',
               whiteSpace: 'nowrap'
             }}

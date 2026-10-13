@@ -120,7 +120,7 @@ export default function Header({ onOpenContactModal }) {
                 display: 'block' 
               }} 
             />
-            <span style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 900, color: '#0F172A', letterSpacing: '0.015em' }}>
               Vel Jeet Technologies
             </span>
           </a>
